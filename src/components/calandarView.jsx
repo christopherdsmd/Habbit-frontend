@@ -2,8 +2,7 @@ import React from 'react';
 import './calandarView.css';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
-import 'react-tooltip/dist/react-tooltip.css'
-import {Tooltip} from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 const generateDateValues = (habitDates, startDate, endDate) => {
   const dateValues = [];
@@ -35,32 +34,29 @@ const CalendarView = ({ habits }) => {
       {habits.map((habit) => (
         <div key={habit._id} className="habit-calendar">
           <h2>
-            {habit.habit_name}
-            {habit.emoji}
+            {habit.habit_name} {habit.emoji}
           </h2>
           <CalendarHeatmap
             key={habit._id}
             startDate={startDate}
             endDate={endDate}
             values={generateDateValues(habit.daily_check, startDate, endDate)}
-            classForValue={value => {
+            classForValue={(value) => {
               if (!value || value.count === 0) {
                 return 'color-empty';
               }
               return `color-github-${value.count}`;
             }}
             showOutOfRangeDays={true}
-            tooltipDataAttrs={value => {
-              return {
-                'data-tip': `${value.date} has count: ${
-                  value.count
-                }`,
-              };
-            }}
+            tooltipDataAttrs={(value) => ({
+              'data-tip': `${value.date} has count: ${value.count}`,
+            })}
             showWeekdayLabels={true}
-            onClick={value => alert(`On ${formatDate(value.date)} You Completed '${habit.habit_name}' ${value.count} times.`)}
-            />
-          <Tooltip id="calendar-tooltip" /> 
+            onClick={(value) =>
+              alert(`On ${formatDate(value.date)} You Completed '${habit.habit_name}' ${value.count} times.`)
+            }
+          />
+          <Tooltip id="calendar-tooltip" />
         </div>
       ))}
     </div>
