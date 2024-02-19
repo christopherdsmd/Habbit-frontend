@@ -48,7 +48,7 @@ const DeletePopup = ({ userID, setDeletePopupOpen, handleClosePopups  }) => {
                 <button className="btn-close" onClick={() => setDeletePopupOpen(false)}>
                     x
                 </button>
-                {habits.map((habit) => (
+                {habits && habits.map((habit) => (
                     <div key={habit._id} className="habit-entry">
                         <button className="delete-btn" onClick={() => deleteHabit(habit._id)}>
                             Delete
