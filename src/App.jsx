@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboard';
 import SaveTheFrogs from './pages/save-the-frogs'
 
 // Set up axios defaults
-axios.defaults.baseURL = 'http://localhost:8000'
+axios.defaults.baseURL = 'https://habbit-backend.onrender.com/'
 axios.defaults.withCredentials = true
 
 function App() {
