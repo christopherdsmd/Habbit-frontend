@@ -31,7 +31,7 @@ export default function Register() {
 }
  return (
         <div>
-              <h2>Welcome to Habit! <br/> <br/>
+              <h2>Welcome to Habbit! <br/> <br/>
               <img src="\assets\frog_login.png"  width="128"
             height="128" alt = "frog_register"></img> <br/>Register</h2>
             <form onSubmit={registerUser} type = 'register'>
