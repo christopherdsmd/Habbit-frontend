@@ -31,7 +31,7 @@ const CalendarView = ({ habits }) => {
 
   return (
     <div>
-      {habits.map((habit) => (
+      {habits && habits.map((habit) => ( // Check if habits is not null or undefined before mapping
         <div key={habit._id} className="habit-calendar">
           <h2>
             {habit.habit_name} {habit.emoji}
