@@ -14,7 +14,7 @@ export function UserContextProvider({ children }) {
         const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
         console.log('Token:', token); // Log token for debugging
         const headers = token ? { Authorization: `Bearer ${token.split('=')[1]}` } : {};
-        const { data } = await axios.get('/api/v1/profile', { headers });
+        const { data } = await axios.get('/profile', { headers });
         setUser(data);
       } catch (error) {
         console.error('Error fetching profile:', error.response?.data || error.message);
