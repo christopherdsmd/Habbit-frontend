@@ -1,0 +1,81 @@
+/* Define dark mode and light mode styles using CSS variables */
+:root {
+  --background-color-dark: #202020; /* Dark mode background color */
+  --text-color-dark: #fff; /* Dark mode text color */
+
+  --background-color-light: #ffffff; /* Light mode background color */
+  --text-color-light: #333; /* Light mode text color */
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply dark mode styles */
+body {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+/* Apply light mode styles */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+  }
+
+  /* Update button background color for light mode */
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Rest of your CSS styles using CSS variables */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #57b357; /* Default button background color */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+  background-color: #57b357;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.rotate-360 {
+  transition: transform 0.5s ease-in-out;
+}
+
+.rotate-360:active {
+  transform: rotate(360deg);
+}
+
+.solidline {
+  border: 0;
+  width: 50%;
+  height: 2px;
+  background: #555454;
+  margin: 15px auto;
+}

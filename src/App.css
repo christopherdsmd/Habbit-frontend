@@ -1,0 +1,80 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.app-dark {
+  background-color: #202020; /* Dark mode background color */
+  color: #fff; /* Dark mode text color */
+}
+
+.app-light {
+  background-color: #ffffff; /* Light mode background color */
+  color: #333; /* Light mode text color */
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+
+/*darkmode */
+.app-dark {
+  background-color: #202020;
+  color: #fff;
+}
+
+/* Light mode */
+.app-light {
+  background-color: #ffffff;
+  color: #333;
+}
+
+
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  min-height: 100vh; /* Ensure that the background color covers the entire viewport height */
+}
+
+body .app-dark  {
+  background-color: #202020;
+  color: #fff;
+}
+
+/* Light mode */
+body .app-light {
+  background-color: #ffffff;
+  color: #333;
+}

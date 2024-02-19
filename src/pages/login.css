@@ -1,0 +1,96 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container label {
+  width: 100px; /* Set a fixed width for labels */
+  text-align: right; /* Align text to the right */
+  margin-right: 10px; /* Add some margin between label and input */
+}
+
+.form-container input {
+  margin-bottom: 10px;
+}
+
+.form-container button {
+  margin-top: 10px;
+}
+
+
+
+.login-title {
+  color: #333333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 300px; /* Adjusted width for narrower text boxes */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+
+
+.form-box label {
+  width: 100%; /* Labels take full width */
+  text-align: right; /* Align text to the right */
+  margin-bottom: 5px; /* Adjust margin as needed */
+}
+
+.form-box input {
+  width: 28%; /* Inputs take full width */
+  margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.Register-button  {
+  background-color: rgba(19, 204, 195, 0.76);
+}
+
+.Guest-button {
+  background-color: rgba(19, 204, 195, 0.76);
+}
+
+button {
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.or {
+  margin: 0 10px;
+}
+
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.171);
+}

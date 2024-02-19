@@ -1,0 +1,51 @@
+.container {
+  text-align: center;
+  padding: 20px;
+  max-width: 800px; 
+  margin: 0 auto; 
+  max-width: 800px; /* Adjust max-width as needed for responsiveness */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.center-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.donation-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #ccc; /* Just for visualization */
+  padding: 10px; /* Just for visualization */
+}
+
+.company-details {
+  text-align: center;
+  margin-right: 0;
+  flex-grow: 1;
+  text-align: left;
+  margin-right: 20px;
+}
+
+.company-description {
+  font-size: 16px;
+  margin-bottom: 10px;
+  width: 100%; 
+  max-width: 700px; 
+}
+
+
+.company-image {
+  width: 128px;
+  height: 128px;
+  flex-shrink: 0;
+  margin-left: 20px;
+}
