@@ -41,7 +41,7 @@ export default function Login() {
             if (!token) {
                 throw new Error('Token not found in local storage');
             }
-            const response = await axios.delete('/api/guest', {
+            const response = await axios.delete('/habits/guest', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
