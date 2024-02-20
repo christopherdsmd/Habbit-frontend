@@ -21,7 +21,9 @@ export default function Dashboard() {
 
   const fetchHabits = async () => {
     try {
-      const response = await axios.get('/habits');
+      const token = localStorage.getItem('token'); // Retrieve token from local storage
+      const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
+      const response = await axios.get('/habits', { headers }); // Pass headers in the request
       setHabits(response.data);
     } catch (error) {
       console.error('Error fetching habits:', error);

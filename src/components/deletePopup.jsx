@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./deletePopup.css";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { UserContext } from '../../context/userContext'; // Import UserContext to access user data and token
 
-
-const DeletePopup = ({ userID, setDeletePopupOpen, handleClosePopups  }) => {
+const DeletePopup = ({ setDeletePopupOpen, handleClosePopups }) => {
+    const { user } = useContext(UserContext); // Get user data from context
     const [habits, setHabits] = useState([]);
 
     const fetchHabits = async () => {
         try {
-            const response = await axios.get('/habits');
+            const token = localStorage.getItem('token'); // Retrieve token from local storage
+            const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
+            const response = await axios.get('/habits', { headers }); // Pass headers in the request
             setHabits(response.data);
         } catch (error) {
             console.error('Error fetching habits:', error);
@@ -18,24 +21,24 @@ const DeletePopup = ({ userID, setDeletePopupOpen, handleClosePopups  }) => {
 
     useEffect(() => {
         fetchHabits();
-    }, [userID]);
+    }, []);
 
     const deleteHabit = async (habitId) => {
         try {
-            const { data } = await axios.delete(`/delete-habit/${habitId}/${userID}`);
+            const token = localStorage.getItem('token'); // Retrieve token from local storage
+            const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
+            const { data } = await axios.delete(`/delete-habit/${habitId}/${user._id}`, { headers }); // Pass headers in the request
+    
             fetchHabits();
     
             if (data.error) {
                 toast.error(data.error);
             } else {
-                // Assuming you passed setHabits as a prop to DeletePopup
-    
                 console.log("Habit deleted successfully:");
                 toast.success("Habit deleted successfully");
                 handleClosePopups();
             }
         } catch (error) {
-            // Handle errors
             toast.error("Error deleting habit");
             console.error("Error deleting habit:", error.response?.data || error.message);
         }
@@ -48,7 +51,7 @@ const DeletePopup = ({ userID, setDeletePopupOpen, handleClosePopups  }) => {
                 <button className="btn-close" onClick={() => setDeletePopupOpen(false)}>
                     x
                 </button>
-                {habits && habits.map((habit) => (
+                {habits.map((habit) => (
                     <div key={habit._id} className="habit-entry">
                         <button className="delete-btn" onClick={() => deleteHabit(habit._id)}>
                             Delete

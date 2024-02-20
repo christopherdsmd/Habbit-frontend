@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import "./addPopup.css";
 import Picker from "emoji-picker-react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { UserContext } from '../../context/userContext'; // Import UserContext to access user data and token
 
 const Popup = (props) => {
+  const { user } = useContext(UserContext); // Get user data from context
   const [habitName, setHabitName] = useState("");
   const [selectedEmoji, setSelectedEmoji] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -37,7 +38,14 @@ const Popup = (props) => {
     };
 
     try {
-      const { data } = await axios.post("/add-habit", newHabitData);
+      const token = localStorage.getItem('token'); // Get token from local storage
+      console.log('Token:', token); // Log token for debugging
+
+      const { data } = await axios.post("/add-habit", newHabitData, {
+        headers: {
+          Authorization: `Bearer ${token}` // Include token in the request headers
+        }
+      });
 
       if (data.error) {
         toast.error(data.error);

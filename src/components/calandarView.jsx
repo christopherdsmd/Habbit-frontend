@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './calandarView.css';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
+import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
+import axios from 'axios';
+import { UserContext } from '../../context/userContext'; // Import UserContext to access user data and token
 
 const generateDateValues = (habitDates, startDate, endDate) => {
   const dateValues = [];
-
   let currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     const dateString = currentDate.toISOString().split('T')[0];
-    const count = habitDates?.find((habitDate) => habitDate.date === dateString)?.count || 0;
+    const count =
+      habitDates?.find((habitDate) => habitDate.date === dateString)?.count || 0;
     dateValues.push({ date: dateString, count });
     currentDate.setDate(currentDate.getDate() + 1);
   }
@@ -28,13 +31,15 @@ const formatDate = (dateString) => {
 const CalendarView = ({ habits }) => {
   const startDate = new Date('2024-01-01');
   const endDate = new Date('2024-12-31');
+  const { user } = useContext(UserContext); // Get user data from context
 
   return (
     <div>
-      {habits && habits.map((habit) => ( // Check if habits is not null or undefined before mapping
+      {habits.map((habit) => (
         <div key={habit._id} className="habit-calendar">
           <h2>
-            {habit.habit_name} {habit.emoji}
+            {habit.habit_name}
+            {habit.emoji}
           </h2>
           <CalendarHeatmap
             key={habit._id}
@@ -53,7 +58,9 @@ const CalendarView = ({ habits }) => {
             })}
             showWeekdayLabels={true}
             onClick={(value) =>
-              alert(`On ${formatDate(value.date)} You Completed '${habit.habit_name}' ${value.count} times.`)
+              alert(
+                `On ${formatDate(value.date)} You Completed '${habit.habit_name}' ${value.count} times.`
+              )
             }
           />
           <Tooltip id="calendar-tooltip" />

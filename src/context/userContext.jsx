@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
-import { useLocation, BrowserRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const UserContext = createContext({});
 
@@ -11,10 +11,9 @@ export function UserContextProvider({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
-        console.log('Token:', token); // Log token for debugging
-        const headers = token ? { Authorization: `Bearer ${token.split('=')[1]}` } : {};
-        const { data } = await axios.get('/profile', { headers });
+        const token = localStorage.getItem('token'); // Retrieve token from local storage
+        const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
+        const { data } = await axios.get('/profile', { headers }); // Pass headers in the request
         setUser(data);
       } catch (error) {
         console.error('Error fetching profile:', error.response?.data || error.message);
@@ -28,10 +27,8 @@ export function UserContextProvider({ children }) {
   }, [user, location.pathname]);
 
   return (
-    <div>
-      <UserContext.Provider value={{ user, setUser }}>
-        {children}
-      </UserContext.Provider>
-    </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
   );
 }
