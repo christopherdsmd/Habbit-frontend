@@ -13,6 +13,8 @@ export default function Login() {
 
     const loginUser = async (event) => {
         event.preventDefault();
+        localStorage.removeItem('token');
+        
         const { email, password } = data;
 
         try {
@@ -39,6 +41,7 @@ export default function Login() {
 
     const loginAsGuest = async (event) => {
         event.preventDefault();
+        localStorage.removeItem('token');
 
         alert('Warning: Guest accounts are unable to save data');
 
