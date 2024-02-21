@@ -20,8 +20,8 @@ export function UserContextProvider({ children }) {
       }
     };
 
-    if (!user || location.pathname === '/dashboard') {
-      // Fetch data when the component mounts or when navigating to the '/dashboard' route
+    // Fetch data only when user is not logged in or when navigating to the '/dashboard' route
+    if (!user && location.pathname === '/dashboard') {
       fetchData();
     }
   }, [user, location.pathname]);
