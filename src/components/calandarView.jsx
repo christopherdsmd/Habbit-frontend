@@ -5,7 +5,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
-import { UserContext } from '../src/context/userContext'; // Import UserContext to access user data and token
+import { UserContext } from '../context/userContext';
 
 const generateDateValues = (habitDates, startDate, endDate) => {
   const dateValues = [];
