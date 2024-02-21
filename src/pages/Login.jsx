@@ -14,6 +14,7 @@ export default function Login() {
     const loginUser = async (event) => {
         event.preventDefault();
         const { email, password } = data;
+
         try {
             const response = await axios.post('/login', {
                 email,
@@ -25,6 +26,7 @@ export default function Login() {
             setData({}); // Clear input fields
             navigate('/dashboard'); // Redirect to dashboard
             toast.success('Login Success!');
+            
         } catch (error) {
             // Handle login error
             toast.error('Login failed. Please check your credentials.');
@@ -35,22 +37,44 @@ export default function Login() {
         navigate('/register'); // Navigate to the Register page
     };
 
-    const loginAsGuest = async () => {
+    const loginAsGuest = async (event) => {
+        event.preventDefault();
+
+        alert('Warning: Guest accounts are unable to save data');
+
+        const guestData = {
+            email: 'guest@guest',
+            password: 'guestPassword123'
+        };
+
         try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                throw new Error('Token not found in local storage');
+            // Send login request with guest account credentials
+            const response = await axios.post('/login', guestData);
+
+            // Check if login was successful
+            if (response.data.token) {
+                // Clear input fields
+                setData({});
+                
+                // Delete guest habits
+                await axios.delete('/habits/guest');
+
+                // Redirect user to dashboard
+                navigate('/dashboard');
+
+                // Show success message
+                toast.success('Guest login successful');
+            } else {
+                // Show error message if login failed
+                toast.error('Guest login failed. Please try again.');
             }
-            const response = await axios.delete('/habits/guest', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log(response.data.message);
         } catch (error) {
-            console.error('Error deleting guest habits:', error.response?.data || error.message);
+            // Handle any errors
+            console.error('Error during guest login:', error);
+            toast.error('Guest login failed. Please try again.');
         }
     };
+
     return (
         <div className="form-box">
             <form onSubmit={loginUser} type="login">
