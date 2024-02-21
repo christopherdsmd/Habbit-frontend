@@ -3,7 +3,7 @@ import "./addPopup.css";
 import Picker from "emoji-picker-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { UserContext } from '../../context/userContext'; // Import UserContext to access user data and token
+import { UserContext } from '../context/userContext.jsx'; // Import UserContext to access user data and token
 
 const Popup = (props) => {
   const { user } = useContext(UserContext); // Get user data from context

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import "./deletePopup.css";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { UserContext } from '../src/context/userContext'; // Import UserContext to access user data and token
+import { UserContext } from '../context/userContext.jsx'; // Import UserContext to access user data and token
 
 const DeletePopup = ({ setDeletePopupOpen, handleClosePopups }) => {
     const { user } = useContext(UserContext); // Get user data from context

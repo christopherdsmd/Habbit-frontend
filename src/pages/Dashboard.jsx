@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../src/context/userContext';
+import { UserContext } from '../context/userContext.jsx';
 import { getDailyRandomInt, getRandomInt } from '../functions/DailyrandomNumber.jsx';
 import DateTime from '../functions/dateandtime.jsx';
 import '../index.css';
@@ -9,6 +9,7 @@ import HabitComponent from '../components/habitComponent.jsx';
 import CalendarView from '../components/calandarView';
 import DeletePopup from '../components/deletePopup.jsx';
 import { Tooltip } from 'react-tooltip';
+
 
 const randInt = getRandomInt(); // for rand frog img on refresh
 
