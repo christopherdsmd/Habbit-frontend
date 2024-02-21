@@ -41,37 +41,33 @@ export default function Login() {
 
     const loginAsGuest = async (event) => {
         event.preventDefault();
-
+    
         alert('Warning: Guest accounts are unable to save data');
-
+    
         const guestData = {
             email: 'guest@guest',
             password: 'guestPassword123'
         };
-
+    
         try {
-            if (localStorage.getItem('token')) {
-                localStorage.removeItem('token');
-            }
-
-            const token = response.data.token; // Assuming the token is returned in the response
-            console.log('Token:', token); // Log the token
-            localStorage.setItem('token', token); 
-            
             // Send login request with guest account credentials
             const response = await axios.post('/login', guestData);
-
-            // Check if login was successful
+    
+            // Assuming the token is returned in the response, handle it here
             if (response.data.token) {
+                const token = response.data.token;
+                console.log('Token:', token); // Log the token
+                localStorage.setItem('token', token);
+    
                 // Clear input fields
                 setData({});
                 
                 // Delete guest habits
                 await axios.delete('/habits/guest');
-
+    
                 // Redirect user to dashboard
                 navigate('/dashboard');
-
+    
                 // Show success message
                 toast.success('Guest login successful');
             } else {
