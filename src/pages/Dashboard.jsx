@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/userContext';
+import { UserContext } from '../src/context/userContext';
 import { getDailyRandomInt, getRandomInt } from '../functions/DailyrandomNumber.jsx';
 import DateTime from '../functions/dateandtime.jsx';
 import '../index.css';

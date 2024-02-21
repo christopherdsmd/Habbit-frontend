@@ -7,12 +7,12 @@ import Register from '../src/pages/Register';
 import Login from '../src/pages/Login';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast'
-import { UserContextProvider } from '../context/userContext';
+import { UserContextProvider } from '../src/context/userContext';
 import Dashboard from './pages/Dashboard';
 import SaveTheFrogs from './pages/save-the-frogs'
 
 // Set up axios defaults
-axios.defaults.baseURL = 'https://habbit-backend.onrender.com'
+axios.defaults.baseURL = 'https://habbit-backend.onrender.com/'
 axios.defaults.withCredentials = true
 
 function App() {
