@@ -12,11 +12,13 @@ export default function Navbar({ theme, toggleTheme }) {
     setNavIsDarkMode(prevMode => !prevMode);
   };
 
+  //updated signout handling in local storage, full frontend
   const signoutUser = async () => {
     try {
-      await axios.post('/signout');
+      localStorage.removeItem('token');
       navigate('/login');
       toast.success('You have been signed out');
+
     } catch (error) {
       console.error('Signout failed:', error);
       toast.error('Signout failed. Please try again.');
