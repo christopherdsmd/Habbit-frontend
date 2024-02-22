@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export const UserContext = createContext({});
+export const  UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const location = useLocation();
   
   useEffect(() => {
@@ -31,4 +31,6 @@ export function UserContextProvider({ children }) {
       {children}
     </UserContext.Provider>
   );
-}
+};  
+
+export const useUser = () => useContext(UserContext);
