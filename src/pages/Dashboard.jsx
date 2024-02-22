@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/userContext.jsx';
-import { getDailyRandomInt, getRandomInt } from '../functions/DailyrandomNumber.jsx';
+import React, { useEffect, useState } from 'react';
+import { useUser } from '../context/userContext.jsx';
+import { getDailyRandomInt } from '../functions/DailyrandomNumber.jsx';
 import DateTime from '../functions/dateandtime.jsx';
-import '../index.css';
 import axios from 'axios';
 import Popup from '../components/addPopup.jsx';
 import HabitComponent from '../components/habitComponent.jsx';
@@ -10,21 +9,23 @@ import CalendarView from '../components/calandarView';
 import DeletePopup from '../components/deletePopup.jsx';
 import { Tooltip } from 'react-tooltip';
 
-
-const randInt = getRandomInt(); // for rand frog img on refresh
-
-export default function Dashboard() {
-  const { user } = useContext(UserContext);
-  const [DailyrandNum, setDailyrandNum] = useState(0); // daily random frog
+const Dashboard = () => {
+  const { user } = useUser();
+  const [DailyrandNum, setDailyrandNum] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [DeletePopupOpen, setDeletePopupOpen] = useState(false);
   const [habits, setHabits] = useState([]);
 
+  useEffect(() => {
+    fetchHabits();
+    setDailyrandNum(getDailyRandomInt());
+  }, []);
+
   const fetchHabits = async () => {
     try {
-      const token = localStorage.getItem('token'); // Retrieve token from local storage
-      const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
-      const response = await axios.get('/habits', { headers }); // Pass headers in the request
+      const token = localStorage.getItem('token');
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const response = await axios.get('/habits', { headers });
       setHabits(response.data);
     } catch (error) {
       console.error('Error fetching habits:', error);
@@ -77,8 +78,11 @@ export default function Dashboard() {
         </div>
 
         <p style={{ marginBottom: '0' }}>Daily Habit Tracker</p>
-        {!!user && <h2 style={{ margin: '0' }}>Welcome back, {user.name}! </h2>}
-
+        {!!user && user.name ? (
+          <h2 style={{ margin: '0' }}>Welcome back, {user.name}! </h2>
+        ) : (
+          <h2 style={{ margin: '0' }}>Loading...</h2> // Placeholder content for loading state
+        )}
         <div className="Date and time">
           <hr className="solidline" />
           <div className="Habit Tracker Dyanamic">
