@@ -38,7 +38,7 @@ export default function Navbar({ theme, toggleTheme }) {
   };
 
   const navigateToAbout = () => {
-    window.open("https://www.linkedin.com/in/christopherpdesmond/", "_blank");
+    window.open("https://github.com/christopherdsmd/Habbit", "_blank");
   };
 
   const toggleLight_DarkModeTheme = () => {
