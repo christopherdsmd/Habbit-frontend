@@ -67,7 +67,7 @@ export default function Dashboard() {
           <img
             id="rotating-image"
             className={`rotate-360`}
-            src={`assets/frog_photos/frog_152.png`}
+            src={`assets/frog_photos/frog_${DailyrandNum}.png`}
             alt="frog_emoji"
             width="128"
             height="128"
