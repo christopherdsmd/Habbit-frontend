@@ -38,7 +38,7 @@ export default function Navbar({ theme, toggleTheme }) {
   };
 
   const navigateToAbout = () => {
-    window.open("https://github.com/christopherdsmd/Habbit", "_blank");
+    window.open("https://github.com/christopherdsmd/Habbit?tab=readme-ov-file#habbit---daily-habit-tracker-", "_blank");
   };
 
   const toggleLight_DarkModeTheme = () => {
