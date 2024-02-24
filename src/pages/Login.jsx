@@ -97,12 +97,19 @@ export default function Login() {
             <h3>Don't have an Account? </h3>
             <button className="Register-button" onClick={handleRegisterClick}>Register</button>
             <button type="button" className="Guest-button" onClick={loginAsGuest}>Continue as Guest</button>
-              <p style={{ color: 'grey', opacity: 0.7 }}>
-    "Saving $8 per day = $3,000 per year <br />
-    Reading 20 pages per day =30 books  per year <br />
-    Walking 10,000 steps per day = 70 marathons per year <br />
-    Never underestimate the power of small habits."
-  </p>
+             <p style={{ 
+  color: 'grey', 
+  opacity: 0.7,
+  lineHeight: '1.5',
+  textAlign: 'center',
+  maxWidth: '400px', // Adjust this value according to your layout
+  margin: '0 auto'   // Center the text horizontally
+}}>
+  Saving $8 per day = $3,000 per year <br />
+  Reading 20 pages per day = 30 books per year <br />
+  Walking 10,000 steps per day = 70 marathons per year <br />
+  Never underestimate the power of small habits.
+</p>
         </div>
     );
 }
