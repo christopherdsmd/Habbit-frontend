@@ -57,7 +57,7 @@ const Popup = (props) => {
         props.handleClose();
       }
     } catch (error) {
-      toast.error("Error adding habit");
+      toast.error("Error adding habit, Habit Name and Emoji are required");
       console.error(
         "Error adding habit:",
         error.response?.data || error.message
