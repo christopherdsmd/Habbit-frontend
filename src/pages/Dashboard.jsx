@@ -10,15 +10,14 @@ import CalendarView from '../components/calandarView';
 import DeletePopup from '../components/deletePopup.jsx';
 import { Tooltip } from 'react-tooltip';
 
-
-const randInt = getRandomInt(); // for rand frog img on refresh
-
 export default function Dashboard() {
   const { user } = useContext(UserContext);
   const [DailyrandNum, setDailyrandNum] = useState(0); // daily random frog
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [DeletePopupOpen, setDeletePopupOpen] = useState(false);
   const [habits, setHabits] = useState([]);
+  const [frogImageIndex, setFrogImageIndex] = useState(getRandomInt()); // State to hold frog image index
+  const [isAnimating, setIsAnimating] = useState(false); // State to track animation
 
   const fetchHabits = async () => {
     try {
@@ -48,9 +47,11 @@ export default function Dashboard() {
   }, []);
 
   const handleImageClick = () => {
-    const image = document.getElementById('rotating-image');
-    image.classList.toggle('rotate-360');
+    setFrogImageIndex(getRandomInt());
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 1000);
   };
+  
 
   // Callback function to handle closing of pop-ups and fetch habits
   const handleClosePopups = () => {
@@ -65,15 +66,14 @@ export default function Dashboard() {
         <div className={`header-content`}>
           <h1>Habbit!</h1>
           <img
-            id="rotating-image"
-            className={`rotate-360`}
-            src={`assets/frog_photos/frog_${DailyrandNum}.png`}
-            alt="frog_emoji"
-            width="128"
-            height="128"
-            onClick={handleImageClick}
-            title="New frog every day!"
-          />
+      src={`assets/frog_photos/frog_${frogImageIndex}.png`}
+      alt="frog_emoji"
+      width="128"
+      height="128"
+      onClick={handleImageClick}
+      className={isAnimating ? 'newspaper-animation rotate-animation' : ''}
+      title="New frog every click!"
+    />
         </div>
 
         <p style={{ marginBottom: '0' }}>Daily Habit Tracker</p>
