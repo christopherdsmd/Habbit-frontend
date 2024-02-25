@@ -24,20 +24,6 @@
 }
 
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
@@ -47,7 +33,15 @@
   color: #888;
 }
 
+.newspaper-animation {
+  transform: perspective(1200px) rotateY(-20deg) rotateX(10deg) scale(0.8) rotate(0deg);
+  transition: transform 0.5s ease;
+}
 
+.rotate-animation {
+  transform: perspective(1200px) rotateY(-20deg) rotateX(10deg) scale(0.8) rotate(360deg);
+  transition: transform 1s ease;
+}
 
 /*darkmode */
 .app-dark {
