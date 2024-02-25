@@ -3,12 +3,12 @@ import { getRandomInt } from './DailyrandomNumber.jsx';
 
 const imagePaths = [];
 
-for (let i = 0; i < 198; i++) {
+for (let i = 0; i < 174; i++) {
   imagePaths.push(`./frog_photos/frog_${i}.png`);
 }
 
 export function getRandomFrogImage() {
-  const randNum = getRandomInt(0, 197);
+  const randNum = getRandomInt(0, 174);
   return imagePaths[randNum];
 }
 
