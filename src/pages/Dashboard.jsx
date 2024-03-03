@@ -9,6 +9,8 @@ import HabitComponent from '../components/habitComponent.jsx';
 import CalendarView from '../components/calandarView';
 import DeletePopup from '../components/deletePopup.jsx';
 import { Tooltip } from 'react-tooltip';
+import { Navigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 export default function Dashboard() {
   const { user } = useContext(UserContext);
@@ -18,6 +20,7 @@ export default function Dashboard() {
   const [habits, setHabits] = useState([]);
   const [frogImageIndex, setFrogImageIndex] = useState(getRandomInt()); // State to hold frog image index
   const [isAnimating, setIsAnimating] = useState(false); // State to track animation
+  const [loading, setLoading] = useState(true); //track loading state
 
   const fetchHabits = async () => {
     try {
@@ -25,6 +28,7 @@ export default function Dashboard() {
       const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
       const response = await axios.get('/habits', { headers }); // Pass headers in the request
       setHabits(response.data);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching habits:', error);
     }
@@ -34,6 +38,21 @@ export default function Dashboard() {
     fetchHabits();
   }, []);
 
+  useEffect(() => {
+    setDailyrandNum(getDailyRandomInt());
+  }, []);
+
+  useEffect(() => {
+    // Redirect to login page after 10 seconds if user is not logged in
+    const timeout = setTimeout(() => {
+      if (!user) {
+        window.location.href = "/login"; // Redirect to login page
+      }
+    }, 1000); //1 seconds
+
+    return () => clearTimeout(timeout); // Cleanup on unmount
+  }, [user]);
+
   const toggleAddPopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
@@ -42,16 +61,11 @@ export default function Dashboard() {
     setDeletePopupOpen(!DeletePopupOpen);
   };
 
-  useEffect(() => {
-    setDailyrandNum(getDailyRandomInt());
-  }, []);
-
   const handleImageClick = () => {
     setFrogImageIndex(getRandomInt());
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 1000);
   };
-  
 
   // Callback function to handle closing of pop-ups and fetch habits
   const handleClosePopups = () => {
@@ -60,20 +74,29 @@ export default function Dashboard() {
     fetchHabits(); // Call fetchHabits to update habit list
   };
 
+  if (loading) {
+    return <div>Loading... 🐸</div>;
+  }
+
+  if (!user) {
+    toast.success('Welcome to Habbit! Please login to continue. 🐸')
+    return <Navigate to="/login" />;
+  }
+
   return (
     <div>
       <header className="App-header">
         <div className={`header-content`}>
           <h1>Habbit!</h1>
           <img
-      src={`assets/frog_photos/frog_${frogImageIndex}.png`}
-      alt="frog_emoji"
-      width="128"
-      height="128"
-      onClick={handleImageClick}
-      className={isAnimating ? 'newspaper-animation rotate-animation' : ''}
-      title="New frog every click!"
-    />
+            src={`assets/frog_photos/frog_${frogImageIndex}.png`}
+            alt="frog_emoji"
+            width="128"
+            height="128"
+            onClick={handleImageClick}
+            className={isAnimating ? 'newspaper-animation rotate-animation' : ''}
+            title="New frog every click!"
+          />
         </div>
 
         <p style={{ marginBottom: '0' }}>Daily Habit Tracker</p>
@@ -102,18 +125,18 @@ export default function Dashboard() {
             <button className="deletebtn" onClick={toggleDeletePopup}>
               Delete Habit
             </button>
-          {DeletePopupOpen && (
-           <DeletePopup userID={user._id} setHabits={setHabits} setDeletePopupOpen={setDeletePopupOpen} handleClosePopups={handleClosePopups} />
-          )}
+            {DeletePopupOpen && (
+              <DeletePopup userID={user._id} setHabits={setHabits} setDeletePopupOpen={setDeletePopupOpen} handleClosePopups={handleClosePopups} />
+            )}
             <div style={{ textAlign: 'center' }}>
-        <p className="quote" style={{ textAlign: 'center', color: 'grey', opacity: 0.6 }}>
-        <br /><br />
-        "Saving $8 per day = $3,000 per year <br />
-        Reading 20 pages per day = 30 books per year <br />
-        Walking 10,000 steps per day = 70 marathons per year <br /><br />
-        Never underestimate the power of small habits."
-        </p>
-    </div>
+              <p className="quote" style={{ textAlign: 'center', color: 'grey', opacity: 0.6 }}>
+                <br /><br />
+                "Saving $8 per day = $3,000 per year <br />
+                Reading 20 pages per day = 30 books per year <br />
+                Walking 10,000 steps per day = 70 marathons per year <br /><br />
+                Never underestimate the power of small habits."
+              </p>
+            </div>
           </div>
         </div>
       </header>

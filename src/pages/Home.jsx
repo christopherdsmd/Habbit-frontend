@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 
 function Home() {
-  // Redirect to login page
-  return <Navigate to="/login" />;
+  // Redirect to dashboard page
+  return <Navigate to="/dashboard" />;
 }
 export default Home;

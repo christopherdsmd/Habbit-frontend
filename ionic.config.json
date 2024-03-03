@@ -1,0 +1,7 @@
+{
+  "name": "habbit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

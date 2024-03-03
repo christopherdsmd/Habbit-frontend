@@ -1,0 +1,8 @@
+{
+  "appId": "com.habbit",
+  "appName": "habbit",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
