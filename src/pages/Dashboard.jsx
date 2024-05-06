@@ -20,7 +20,7 @@ export default function Dashboard() {
   const [habits, setHabits] = useState([]);
   const [frogImageIndex, setFrogImageIndex] = useState(getRandomInt()); // State to hold frog image index
   const [isAnimating, setIsAnimating] = useState(false); // State to track animation
-  const [loading, setLoading] = useState(true); //track loading state
+  const [redirect, setRedirect] = useState(false);  //track dashboard to login page redirect
 
   const fetchHabits = async () => {
     try {
@@ -28,7 +28,6 @@ export default function Dashboard() {
       const headers = token ? { Authorization: `Bearer ${token}` } : {}; // Set headers with token
       const response = await axios.get('/habits', { headers }); // Pass headers in the request
       setHabits(response.data);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching habits:', error);
     }
@@ -43,15 +42,20 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    // Redirect to login page after 10 seconds if user is not logged in
+    // Redirect to login page after 3 seconds if user is not logged in
     const timeout = setTimeout(() => {
       if (!user) {
-        window.location.href = "/login"; // Redirect to login page
+        toast.success('Welcome to Habbit! Please login to continue. 🐸');
+        setRedirect(true);
       }
-    }, 1000); //1 seconds
-
+    }, 3000); // Delay of 3 seconds
+  
     return () => clearTimeout(timeout); // Cleanup on unmount
   }, [user]);
+
+  if (redirect) {
+    return <Navigate to="/login" />;
+  }
 
   const toggleAddPopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -73,15 +77,6 @@ export default function Dashboard() {
     setDeletePopupOpen(false);
     fetchHabits(); // Call fetchHabits to update habit list
   };
-
-  if (loading) {
-    return <div>Loading... 🐸</div>;
-  }
-
-  if (!user) {
-    toast.success('Welcome to Habbit! Please login to continue. 🐸')
-    return <Navigate to="/login" />;
-  }
 
   return (
     <div>
