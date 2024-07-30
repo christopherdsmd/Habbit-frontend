@@ -1,6 +1,6 @@
 /* Define dark mode and light mode styles using CSS variables */
 :root {
-  --background-color-dark: #202020; /* Dark mode background color */
+  --background-color-dark: #181717; /* Dark mode background color */
   --text-color-dark: #fff; /* Dark mode text color */
 
   --background-color-light: #ffffff; /* Light mode background color */
