@@ -1,32 +1,40 @@
-import React, { useState } from 'react';
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
-import Navbar from '../src/components/Navbar'
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from '../src/components/Navbar';
 import Home from '../src/pages/Home';
 import Register from '../src/pages/Register';
 import Login from '../src/pages/Login';
 import axios from 'axios';
-import { Toaster } from 'react-hot-toast'
-import { UserContextProvider } from './context/userContext.jsx'
+import { Toaster } from 'react-hot-toast';
+import { UserContextProvider } from './context/userContext.jsx';
 import Dashboard from './pages/Dashboard';
-import SaveTheFrogs from './pages/save-the-frogs'
+import SaveTheFrogs from './pages/save-the-frogs';
 
-// Set up axios defaults
-axios.defaults.baseURL = 'https://habbit-backend.onrender.com/'
-axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'https://habbit-backend.onrender.com/';
+axios.defaults.withCredentials = true;
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false); // State to track current theme
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
-    setIsDarkMode(prevMode => !prevMode); // Toggle theme
-    document.body.classList.toggle('app-dark', !isDarkMode);
-    document.body.classList.toggle('app-light', isDarkMode);
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('isDarkMode', newMode);
+    document.body.classList.toggle('app-dark', newMode);
+    document.body.classList.toggle('app-light', !newMode);
   };
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem('isDarkMode') === 'true';
+    setIsDarkMode(savedMode);
+    document.body.classList.toggle('app-dark', savedMode);
+    document.body.classList.toggle('app-light', !savedMode);
+  }, []);
 
   return (
     <UserContextProvider>
-      <Navbar toggleTheme={toggleTheme} />
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -36,7 +44,7 @@ function App() {
         <Route path='/save-the-frogs' element={<SaveTheFrogs />} />
       </Routes>
     </UserContextProvider>
-  )
+  );
 }
 
 export default App;

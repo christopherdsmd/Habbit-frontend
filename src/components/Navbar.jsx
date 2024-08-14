@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import './Navbar.css';
 
-export default function Navbar({ theme, toggleTheme }) {
-  const [isNavDarkMode, setNavIsDarkMode] = useState(false);
+export default function Navbar({ isDarkMode, toggleTheme }) {
   const navigate = useNavigate();
 
-  const toggleNavbarTheme = () => {
-    setNavIsDarkMode(prevMode => !prevMode);
-  };
-
-  //updated signout handling in local storage, full frontend
   const signoutUser = async () => {
     try {
       localStorage.removeItem('token');
       navigate('/login');
       toast.success('You have been signed out');
-
     } catch (error) {
       console.error('Signout failed:', error);
       toast.error('Signout failed. Please try again.');
@@ -41,14 +34,9 @@ export default function Navbar({ theme, toggleTheme }) {
     window.open("https://github.com/christopherdsmd/Habbit", "_blank");
   };
 
-  const toggleLight_DarkModeTheme = () => {
-    toggleTheme(); 
-    toggleNavbarTheme();
-  };
-
   return (
     <div>
-      <nav className={`Navbar ${isNavDarkMode ? 'navbar-dark' : 'navbar-light'}`}>
+      <nav className={`Navbar ${isDarkMode ? 'navbar-dark' : 'navbar-light'}`}>
         <div className="logo-container">
           <button onClick={() => navigate('/dashboard')}>Habbit</button>
           <img src="assets/frog_hole.png" width="30" height="30" alt="frog logo" />
@@ -60,9 +48,9 @@ export default function Navbar({ theme, toggleTheme }) {
           <button onClick={navigateToLogin}>Login </button>
           <button onClick={navigateToRegister}>Register </button> 
           <button onClick={navigateToAbout}>About</button> 
-          <button onClick={toggleLight_DarkModeTheme} id="lightDarkButton">
+          <button onClick={toggleTheme} id="lightDarkButton">
             <img
-              src={isNavDarkMode ? "assets/Light-Dark mode photos/sun-icon.png" : "assets/Light-Dark mode photos/moon-icon.png"}
+              src={isDarkMode ? "assets/Light-Dark mode photos/sun-icon.png" : "assets/Light-Dark mode photos/moon-icon.png"}
               alt="light mode"
               width="30"
               height="30"
