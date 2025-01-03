@@ -23,8 +23,14 @@ const Popup = (props) => {
   const addHabit = async (event) => {
     event.preventDefault();
 
-    // Initialize daily_check array with 365 dates starting from '2024-01-01'
-    const startDate = new Date("2024-01-01");
+    //get first date of current year
+    function getFirstDayofCurrentYear(){
+      const currentYear = new date().getFullYear();
+      return '${currentYear}-01-01'
+    }
+    
+    // Initialize daily_check array with 365 dates starting from 'YYYY-01-01'
+    const startDate = new Date(getFirstDayofCurrentYear());
     const dailyCheck = Array.from({ length: 365 }, (_, index) => {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + index);
@@ -57,7 +63,7 @@ const Popup = (props) => {
         props.handleClose();
       }
     } catch (error) {
-      toast.error("Error adding habit, Habit Name and Emoji are required");
+      toast.error("Error adding habit");
       console.error(
         "Error adding habit:",
         error.response?.data || error.message
