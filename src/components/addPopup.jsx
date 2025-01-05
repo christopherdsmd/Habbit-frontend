@@ -25,7 +25,7 @@ const Popup = (props) => {
 
     //get first date of current year
     function getFirstDayofCurrentYear(){
-      const currentYear = new date().getFullYear();
+      const currentYear = new Date().getFullYear();
       return '${currentYear}-01-01'
     }
     
