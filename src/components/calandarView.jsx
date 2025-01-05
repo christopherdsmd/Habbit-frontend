@@ -3,7 +3,7 @@ import './calandarView.css';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import 'react-tooltip/dist/react-tooltip.css'
-import {Tooltip} from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 const generateDateValues = (habitDates, startDate, endDate) => {
   const dateValues = [];
@@ -31,8 +31,11 @@ function getLastDayOfCurrentYear() {
   return `${currentYear}-12-31`;
 }
 
+// Format the date to be displayed (with UTC handling)
 const formatDate = (dateString) => {
-  const date = new Date(dateString);
+  // Use Date.UTC to ensure the date is treated as UTC
+  const [year, month, day] = dateString.split('-');
+  const date = new Date(Date.UTC(year, month - 1, day)); // months are 0-indexed in JavaScript Date
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString(undefined, options);
 };
@@ -69,9 +72,20 @@ const CalendarView = ({ habits }) => {
               };
             }}
             showWeekdayLabels={true}
-            onClick={value => alert(`On ${formatDate(value.date)} You Completed '${habit.habit_name}' ${value.count} times.`)}
-            />
-          <Tooltip id="calendar-tooltip" /> 
+
+            
+            onClick={value => {
+              const date = new Date(value.date);
+              const formattedDate = date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                timeZone: 'UTC'
+              });
+              alert(`On ${formattedDate} You Completed '${habit.habit_name}' ${value.count} times.`);
+            }}
+          />
+          <Tooltip id="calendar-tooltip" />
         </div>
       ))}
     </div>
